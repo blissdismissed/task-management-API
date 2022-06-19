@@ -10,8 +10,9 @@ const router = express.Router();
 
  router.post('/', todosController.addTodo);
 
+ router.patch('/:id', todosController.updateTodo);
+
+ router.delete('/:id', todosController.deleteTodo);
 
 
-module.exports = {
-
-}
+module.exports = router;

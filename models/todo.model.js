@@ -10,7 +10,7 @@ class Todo {
 
   static async getAllTodos() {
     const todoDocuments = await db.getDb().collection('todos').find().toArray();
-    return todoDocuments.map(todoDocument => new Todo( todoDocument._id, todoDocument._text ));
+    return todoDocuments.map(todoDocument => new Todo( todoDocument.text, todoDocument._id ));
   }
 
   save() { 
@@ -27,12 +27,12 @@ class Todo {
   }
 
   delete() {
-    if (this.id) {
+    if (!this.id) {
       throw new Error("Trying to delete an id that doesn't exist!");
     }
-
     const todoId = new mongodb.ObjectId(this.id);
-    return db.getDd().collection('todos').deleteOne({ _id: todoId });
+    return db.getDb().collection('todos').deleteOne({ _id: todoId });
+    
   }
 }
 
